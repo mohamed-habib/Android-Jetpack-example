@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Products List</string>
+    <string name="retry">Retry</string>
+    <string name="error_happened">Error Happened, Please Try Again</string>
+    <string name="check_internet_connection">Please check your internet connection</string>
+    <string name="no_data">No Data</string>
+</resources>
