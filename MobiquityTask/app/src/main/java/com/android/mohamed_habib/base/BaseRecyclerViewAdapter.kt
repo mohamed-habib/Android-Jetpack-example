@@ -43,7 +43,7 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
         val layoutInflater = LayoutInflater.from(parent.context)
 
         val binding = DataBindingUtil
-            .inflate<ViewDataBinding>(layoutInflater, getLayoutRes(), parent, false)
+            .inflate<ViewDataBinding>(layoutInflater, getLayoutRes(viewType), parent, false)
 
         binding.lifecycleOwner = getLifecycleOwner()
 
@@ -59,7 +59,6 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
     }
 
     fun getItem(position: Int) = _items[position]
-
 
     /**
      * Adds data to the actual Dataset
@@ -138,7 +137,7 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
 
 
     @LayoutRes
-    abstract fun getLayoutRes(): Int
+    abstract fun getLayoutRes(viewType: Int): Int
 
     open fun getLifecycleOwner(): LifecycleOwner? {
         return null

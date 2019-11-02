@@ -3,10 +3,9 @@ package com.android.mohamed_habib.productlist
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.android.mohamed_habib.data.dto.APIResult
-import com.android.mohamed_habib.data.dto.Category
 import com.android.mohamed_habib.base.BaseViewModel
 import com.android.mohamed_habib.data.ProductDataSource
+import com.android.mohamed_habib.data.dto.APIResult
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 
@@ -14,7 +13,7 @@ class ProductListViewModel(
     app: Application,
     private val repo: ProductDataSource
 ) : BaseViewModel(app) {
-    val categoriesLiveData = MutableLiveData<List<Category>>()
+    val productsList = MutableLiveData<List<DataItem>>()
 
     init {
         loadProducts()
@@ -27,11 +26,20 @@ class ProductListViewModel(
             showLoading.postValue(false)
             when (result) {
                 is APIResult.Success -> {
-                    categoriesLiveData.value = result.data
+                    val dataList = ArrayList<DataItem>()
+                    result.data.forEach { category ->
+                        dataList.add(DataItem.HeaderViewItem(category.name))
+
+                        dataList.addAll(category.products.map { product ->
+                            DataItem.ProductViewItem(product)
+                        })
+                    }
+
+                    productsList.value = dataList
                 }
-                is APIResult.Error -> {
+
+                is APIResult.Error ->
                     showSnackBar.value = (result.errorBody as ResponseBody).string()
-                }
             }
             //check if no data has to be shown
             invalidateShowNoData()
@@ -40,6 +48,6 @@ class ProductListViewModel(
 
     fun invalidateShowNoData() {
         showNoData.value =
-            categoriesLiveData.value == null || categoriesLiveData.value!!.isEmpty()
+            productsList.value == null || productsList.value!!.isEmpty()
     }
 }

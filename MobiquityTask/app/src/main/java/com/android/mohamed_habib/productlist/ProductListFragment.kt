@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.android.mohamed_habib.base.BaseFragment
+import com.android.mohamed_habib.base.NavigationCommand
 import com.android.mohamed_habib.data.dto.Product
 import com.android.mohamed_habib.productdetails.ProductDetailsFragment
 import com.android.mohamed_habib.ui.R
-import com.android.mohamed_habib.base.BaseFragment
-import com.android.mohamed_habib.base.NavigationCommand
 import com.android.mohamed_habib.ui.databinding.FragmentProductListBinding
 import com.android.mohamed_habib.utils.isConnected
 import com.android.mohamed_habib.utils.setDisplayHomeAsUpEnabled
@@ -21,6 +21,7 @@ import com.android.mohamed_habib.utils.setup
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProductListFragment : BaseFragment() {
     override val _viewModel: ProductListViewModel by viewModel()
@@ -31,8 +32,10 @@ class ProductListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater,
-                R.layout.fragment_product_list, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_product_list, container, false
+            )
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
@@ -51,10 +54,13 @@ class ProductListFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = CategoryListAdapter { selectedProduct ->
-            navigateToDetails(selectedProduct)
+        val adapter = ProductsListAdapter { selectedProduct ->
+            if (selectedProduct is DataItem.ProductViewItem) {
+                selectedProduct.product?.let { navigateToDetails(it) }
+            }
         }
-        binding.categoriesRecyclerView.setup(adapter)
+
+        binding.productsRecyclerView.setup(adapter)
     }
 
     private fun observers() {

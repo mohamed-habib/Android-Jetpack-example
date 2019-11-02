@@ -8,10 +8,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.android.mohamed_habib.data.ProductDataSource
 import com.android.mohamed_habib.data.dto.Category
 import com.android.mohamed_habib.data.dto.Product
 import com.android.mohamed_habib.data.dto.SalePrice
-import com.android.mohamed_habib.data.network.ProductDataSource
 import com.android.mohamed_habib.ui.data.fake.FakeProductRepository
 import com.android.mohamed_habib.productlist.ProductListFragment
 import com.android.mohamed_habib.productlist.ProductListViewModel
@@ -129,7 +129,9 @@ class ProductListFragmentTest : AutoCloseKoinTest() {
             null,
             R.style.AppTheme
         )
-        onView(withId(R.id.categoriesRecyclerView)).check(matches(isDisplayed()))
+        onView(withId(R.id.productsRecyclerView)).check(matches(isDisplayed()))
+
+
         onView(withId(R.id.noDataTextView)).check(matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.progressBar)).check(matches(withEffectiveVisibility(Visibility.GONE)))
     }

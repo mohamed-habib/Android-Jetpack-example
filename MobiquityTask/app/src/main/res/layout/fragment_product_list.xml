@@ -22,10 +22,10 @@
             android:background="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoriesRecyclerView"
+                android:id="@+id/productsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:liveData="@{viewModel.categoriesLiveData}"
+                android:liveData="@{viewModel.productsList}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

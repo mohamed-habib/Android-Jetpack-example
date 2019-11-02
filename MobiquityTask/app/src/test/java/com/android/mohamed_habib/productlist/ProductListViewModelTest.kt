@@ -92,7 +92,7 @@ class ProductListViewModelTest {
 
         TestCase.assertEquals(
             TestUtils.getProductsTestObject(),
-            LiveDataTestUtil.getValue(productsViewModel.categoriesLiveData)
+            LiveDataTestUtil.getValue(productsViewModel.productsList)
         )
 
         TestCase.assertEquals(false, LiveDataTestUtil.getValue(productsViewModel.showLoading))
