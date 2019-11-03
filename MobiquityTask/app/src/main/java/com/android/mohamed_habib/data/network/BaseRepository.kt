@@ -28,15 +28,6 @@ open class BaseRepository {
 
         APIResult.Error(response?.errorBody(), response?.code())
 
-    protected fun <T : Any> getAPIResult(response: APIResult<*>, data: T?): APIResult<T> {
-        return when (response) {
-            is APIResult.Success -> {
-                return APIResult.Success(data!!)
-            }
-            is APIResult.Error -> response
-        }
-    }
-
     protected fun <T : Any> getAPIResult(response: APIResult<T>): APIResult<T> {
         return when (response) {
             is APIResult.Success -> APIResult.Success(response.data)
