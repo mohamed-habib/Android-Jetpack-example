@@ -5,15 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
     <fragment
         android:id="@+id/product_list_fragment"
         android:name="com.android.mohamed_habib.productlist.ProductListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline"
-        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

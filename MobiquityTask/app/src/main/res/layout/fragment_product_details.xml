@@ -24,11 +24,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/ivBackdrop"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
                 android:imageUrl="@{viewModel.selectedProduct.imageUrl}"
                 android:placeHolder="@{@drawable/ic_place_holder}"
+                android:id="@+id/ivBackdrop"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/details_img_height"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,9 +38,9 @@
                 android:id="@+id/ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#86000000"
+                android:background="@color/grey"
                 android:orientation="vertical"
-                android:padding="15dp"
+                android:padding="@dimen/padding_normal"
                 app:layout_constraintBottom_toBottomOf="@id/ivBackdrop"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.selectedProduct.name}"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_normal"
                     android:textStyle="bold"
                     tools:text="Bread" />
 
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.selectedProduct.price}"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_small"
                     tools:text="200 usd" />
 
             </LinearLayout>
@@ -74,7 +74,7 @@
             android:layout_margin="5dp"
             android:text="@{viewModel.selectedProduct.description}"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="@+id/ll"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="description description description description description description " />
