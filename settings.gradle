@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='MobiquityTask'
+rootProject.name='Android-Jetpack-example'
