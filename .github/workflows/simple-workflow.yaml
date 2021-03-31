@@ -52,10 +52,6 @@ jobs:
       - name: Unit tests
         run: ./gradlew testDebugUnitTest
         
-      - name: The job has failed
-        if: ${{ failure() }}
-        run: cat file:///Users/runner/work/Android-Jetpack-example/Android-Jetpack-example/app/build/reports/tests/testDebugUnitTest/index.html
-        
     # Run UI Tests
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -68,6 +64,10 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
+      - name: If the job has failed
+        if: ${{ failure() }}
+        run: cat file:///Users/runner/work/Android-Jetpack-example/Android-Jetpack-example/app/build/reports/tests/testDebugUnitTest/index.html
+        
 
 
 
