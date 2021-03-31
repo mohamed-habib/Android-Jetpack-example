@@ -34,7 +34,7 @@ jobs:
         run: echo Hello, world!, Welcome to my action!
 
     # Checks-out current repository in ubuntu's file stsyem
-      - name: Checkout current repository in ubuntu file system
+      - name: Checkout current repository in macos file system
         uses: actions/checkout@v1
 
     # Setup JDK
