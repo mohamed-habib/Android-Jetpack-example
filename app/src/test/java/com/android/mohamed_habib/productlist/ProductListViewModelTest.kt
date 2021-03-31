@@ -1,14 +1,14 @@
 package com.android.mohamed_habib.productlist
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.core.app.ApplicationProvider
 import com.android.mohamed_habib.MainCoroutineRule
-import com.android.mohamed_habib.data.network.ProductsService
 import com.android.mohamed_habib.data.network.ProductsRepository
+import com.android.mohamed_habib.data.network.ProductsService
 import com.android.mohamed_habib.utils.LiveDataTestUtil
 import com.android.mohamed_habib.utils.TestUtils
 import com.android.mohamed_habib.utils.jsonResponseFileName
+import com.nhaarman.mockitokotlin2.mock
+import junit.framework.Assert.assertEquals
 import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,14 +21,11 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
-import org.robolectric.RobolectricTestRunner
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 
-@RunWith(RobolectricTestRunner::class)
 @ExperimentalCoroutinesApi
 class ProductListViewModelTest {
     // Executes each task synchronously using Architecture Components.
@@ -52,12 +49,10 @@ class ProductListViewModelTest {
     // Set the main coroutines dispatcher for unit testing.
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
-    lateinit var applicationContext: Application
 
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
-        applicationContext = ApplicationProvider.getApplicationContext()
     }
 
     @After
@@ -69,9 +64,11 @@ class ProductListViewModelTest {
 
     @Test
     fun loadProducts_Success() {
+        val body = TestUtils.getJson(jsonResponseFileName)
+
         mockWebServer.enqueue(
             MockResponse()
-                .setBody(TestUtils.getJson(jsonResponseFileName))
+                .setBody(body)
                 .setResponseCode(200)
         )
 
@@ -82,17 +79,18 @@ class ProductListViewModelTest {
         // Pause dispatcher so we can verify initial values
         mainCoroutineRule.pauseDispatcher()
 
-        var productsViewModel = ProductListViewModel(
-            applicationContext, productsRepository
+        val productsViewModel = ProductListViewModel(
+            mock(), productsRepository
         )
         //validate loading started
         TestCase.assertEquals(true, LiveDataTestUtil.getValue(productsViewModel.showLoading))
 
         mainCoroutineRule.resumeDispatcher()
 
-        TestCase.assertEquals(
-            TestUtils.getProductsTestObject(),
-            LiveDataTestUtil.getValue(productsViewModel.productsList)
+        assertEquals(
+            TestUtils.getProductsTestObject().first().name,
+            (LiveDataTestUtil.getValue(productsViewModel.productsList)
+                .first() as DataItem.HeaderViewItem).categoryName
         )
 
         TestCase.assertEquals(false, LiveDataTestUtil.getValue(productsViewModel.showLoading))
@@ -114,8 +112,8 @@ class ProductListViewModelTest {
         // Pause dispatcher so we can verify initial values
         mainCoroutineRule.pauseDispatcher()
 
-        var productsViewModel = ProductListViewModel(
-            applicationContext, productsRepository
+        val productsViewModel = ProductListViewModel(
+            mock(), productsRepository
         )
         //validate loading started
         TestCase.assertEquals(true, LiveDataTestUtil.getValue(productsViewModel.showLoading))
