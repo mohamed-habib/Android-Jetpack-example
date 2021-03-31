@@ -3,6 +3,7 @@ package com.android.mohamed_habib.utils
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +41,8 @@ object BindingAdapters {
     @BindingAdapter("android:imageUrl", "android:placeHolder")
     @JvmStatic
     fun setImageUrl(
-        imageView: ImageView, url: String?, placeHolder: Drawable? = imageView.context.getDrawable(
+        imageView: ImageView, url: String?, placeHolder: Drawable? = ContextCompat.getDrawable(
+            imageView.context,
             R.drawable.ic_place_holder
         )
     ) {

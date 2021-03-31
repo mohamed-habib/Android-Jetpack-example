@@ -43,7 +43,7 @@ class ProductDetailsFragment : BaseFragment() {
             setTitle(args.selectedProduct.name)
         }
 
-        _viewModel.selectedProduct.observe(this, Observer {
+        _viewModel.selectedProduct.observe(viewLifecycleOwner, Observer {
             _viewModel.rootVisibility.value = true
         })
 

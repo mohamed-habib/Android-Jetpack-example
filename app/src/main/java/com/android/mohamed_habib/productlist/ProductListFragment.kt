@@ -64,7 +64,7 @@ class ProductListFragment : BaseFragment() {
     }
 
     private fun observers() {
-        _viewModel.showLoading.observe(this, Observer {
+        _viewModel.showLoading.observe(viewLifecycleOwner, Observer {
             if (!it) binding.refreshLayout?.isRefreshing = false
         })
         _viewModel.showSnackBar.observe(this, Observer {
