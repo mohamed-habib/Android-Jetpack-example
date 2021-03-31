@@ -25,7 +25,7 @@ jobs:
     name: Build and run tests
 
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,12 +43,31 @@ jobs:
         with:
           java-version: 1.8
 
+    # Build the app
+      - name: Build the app
+        run: ./gradlew build
+        
+        
     # Run Unit Tests
       - name: Unit tests
         run: ./gradlew testDebugUnitTest
         
         
-        
+    # Run UI Tests
+      - name: Run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86
+          profile: Nexus 6
+          avd-name: test
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck
+
+
+
+
         
         
         
