@@ -7,7 +7,6 @@ import com.android.mohamed_habib.data.network.ProductsService
 import com.android.mohamed_habib.utils.LiveDataTestUtil
 import com.android.mohamed_habib.utils.TestUtils
 import com.android.mohamed_habib.utils.jsonResponseFileName
-import com.nhaarman.mockitokotlin2.mock
 import junit.framework.Assert.assertEquals
 import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
@@ -79,9 +78,7 @@ class ProductListViewModelTest {
         // Pause dispatcher so we can verify initial values
         mainCoroutineRule.pauseDispatcher()
 
-        val productsViewModel = ProductListViewModel(
-            mock(), productsRepository
-        )
+        val productsViewModel = ProductListViewModel(productsRepository)
         //validate loading started
         TestCase.assertEquals(true, LiveDataTestUtil.getValue(productsViewModel.showLoading))
 
@@ -113,7 +110,7 @@ class ProductListViewModelTest {
         mainCoroutineRule.pauseDispatcher()
 
         val productsViewModel = ProductListViewModel(
-            mock(), productsRepository
+            productsRepository
         )
         //validate loading started
         TestCase.assertEquals(true, LiveDataTestUtil.getValue(productsViewModel.showLoading))

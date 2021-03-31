@@ -19,11 +19,10 @@ class MyApp : Application() {
         val myModule = module {
             viewModel {
                 ProductListViewModel(
-                    get(),
                     get() as ProductDataSource
                 )
             }
-            viewModel { ProductDetailsViewModel(get()) }
+            viewModel { ProductDetailsViewModel() }
             single { ProductsRepository(get()) as ProductDataSource }
             single { API.productsApi }
         }

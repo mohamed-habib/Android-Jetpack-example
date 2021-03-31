@@ -10,9 +10,8 @@ import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 
 class ProductListViewModel(
-    app: Application,
     private val repo: ProductDataSource
-) : BaseViewModel(app) {
+) : BaseViewModel() {
     val productsList = MutableLiveData<List<DataItem>>()
 
     init {
