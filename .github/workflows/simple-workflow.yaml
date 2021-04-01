@@ -68,7 +68,12 @@ jobs:
         if: ${{ failure() }}
         run: cat file:///Users/runner/work/Android-Jetpack-example/Android-Jetpack-example/app/build/reports/tests/testDebugUnitTest/index.html
         
-
+        
+      - name: Upload Reports
+        uses: actions/upload-artifact@v1
+        with:
+            name: reports
+            path: app/build/reports
 
 
         
